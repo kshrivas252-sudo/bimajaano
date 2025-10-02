@@ -1,0 +1,5 @@
+{% extends "layouts/base.njk" %}
+{% set title = "Q&A (FAQ)" %}{% set description = "Answers to common insurance questions." %}
+{% block content %}<section class="card"><h2>Q&amp;A (FAQ)</h2><div>
+{% for item in collections.faq %}<details class="card" style="margin:12px 0"><summary><strong>{{ item.data.question }}</strong></summary><div style="margin-top:8px">{{ item.templateContent | safe }}</div></details>{% endfor %}
+</div></section>{% endblock %}

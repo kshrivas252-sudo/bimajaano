@@ -1,0 +1,59 @@
+backend:
+  name: git-gateway
+  branch: main
+media_folder: "src/assets/uploads"
+public_folder: "/assets/uploads"
+site_url: "https://bimajaano.com"
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - file: "src/_data/settings.json"
+        label: "Homepage & SEO"
+        name: "settings"
+        fields:
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Hero Image", name: "hero_image", widget: "image" }
+          - { label: "Default SEO Title", name: "seo_title", widget: "string" }
+          - { label: "Default SEO Description", name: "seo_description", widget: "text" }
+  - name: "articles"
+    label: "Articles"
+    folder: "src/content/articles"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Category", name: "category", widget: "select", options: ["Life Insurance","Health Insurance","Motor Insurance","Investment","General"]}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "SEO Description", name: "description", widget: "text", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+  - name: "news"
+    label: "News"
+    folder: "src/content/news"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Category", name: "category", widget: "select", options: ["Industry","Regulation","Products","General"]}
+      - {label: "SEO Description", name: "description", widget: "text", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+  - name: "terms"
+    label: "Insurance Terms"
+    folder: "src/content/terms"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Definition", name: "body", widget: "markdown"}
+      - {label: "SEO Description", name: "description", widget: "text", required: false}
+  - name: "faq"
+    label: "Q&A (FAQ)"
+    folder: "src/content/faq"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Question", name: "question", widget: "string"}
+      - {label: "Answer", name: "body", widget: "markdown"}
+      - {label: "SEO Description", name: "description", widget: "text", required: false}
