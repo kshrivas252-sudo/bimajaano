@@ -1,13 +1,29 @@
+
 {% extends "layouts/base.njk" %}
-{% set title = "Insurance Terms" %}{% set description = "Definitions of common insurance terms." %}
+{% set title = "Insurance Terms" %}
 {% block content %}
-<section class="card"><h2>Insurance Terms</h2>
-<input id="filter" placeholder="Search terms..." style="width:100%;padding:10px;border:1px solid #e6eef6;border-radius:8px">
-<ul class="clean" id="termsList">
-{% for term in collections.terms | sort(attribute='data.title') %}
-<li class="list-item"><h4>{{ term.data.title }}</h4><div class="small">{{ term.date | dateIso }}</div><div>{{ term.templateContent | safe }}</div></li>
-{% endfor %}</ul></section>
+<section class="card">
+  <h2>Insurance Terms</h2>
+  <input id="filter" placeholder="Search terms..." style="width:100%;padding:10px;border:1px solid #e6eef6;border-radius:8px">
+  <ul class="clean" id="termsList">
+  {% for term in collections.terms | sort(attribute='data.title') %}
+    <li class="list-item">
+      <h4>{{ term.data.title }}</h4>
+      <div class="small">{{ term.date | dateIso }}</div>
+      <div>{{ term.templateContent | safe }}</div>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
 <script>
-const list=document.getElementById('termsList');const items=[...list.children];
-document.getElementById('filter').addEventListener('input',e=>{const q=(e.target.value||'').toLowerCase();items.forEach(li=>{const t=li.querySelector('h4').innerText.toLowerCase();const b=li.innerText.toLowerCase();li.style.display=(t.includes(q)||b.includes(q))?'':'none';});});
-</script>{% endblock %}
+const list=document.getElementById('termsList'); const items=[...list.children];
+document.getElementById('filter').addEventListener('input', e=>{
+  const q=(e.target.value||'').toLowerCase();
+  items.forEach(li=>{
+    const t=li.querySelector('h4').innerText.toLowerCase();
+    const b=li.innerText.toLowerCase();
+    li.style.display = (t.includes(q) || b.includes(q)) ? '' : 'none';
+  });
+});
+</script>
+{% endblock %}

@@ -1,9 +1,13 @@
+
 backend:
   name: git-gateway
   branch: main
+
 media_folder: "src/assets/uploads"
 public_folder: "/assets/uploads"
+
 site_url: "https://bimajaano.com"
+
 collections:
   - name: "settings"
     label: "Site Settings"
@@ -16,6 +20,7 @@ collections:
           - { label: "Hero Image", name: "hero_image", widget: "image" }
           - { label: "Default SEO Title", name: "seo_title", widget: "string" }
           - { label: "Default SEO Description", name: "seo_description", widget: "text" }
+
   - name: "articles"
     label: "Articles"
     folder: "src/content/articles"
@@ -28,6 +33,7 @@ collections:
       - {label: "Featured Image", name: "image", widget: "image", required: false}
       - {label: "SEO Description", name: "description", widget: "text", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
+
   - name: "news"
     label: "News"
     folder: "src/content/news"
@@ -39,6 +45,7 @@ collections:
       - {label: "Category", name: "category", widget: "select", options: ["Industry","Regulation","Products","General"]}
       - {label: "SEO Description", name: "description", widget: "text", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
+
   - name: "terms"
     label: "Insurance Terms"
     folder: "src/content/terms"
@@ -48,6 +55,7 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Definition", name: "body", widget: "markdown"}
       - {label: "SEO Description", name: "description", widget: "text", required: false}
+
   - name: "faq"
     label: "Q&A (FAQ)"
     folder: "src/content/faq"
@@ -56,4 +64,3 @@ collections:
     fields:
       - {label: "Question", name: "question", widget: "string"}
       - {label: "Answer", name: "body", widget: "markdown"}
-      - {label: "SEO Description", name: "description", widget: "text", required: false}
