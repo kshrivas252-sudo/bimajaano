@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bimajaano.com/sitemap.xml

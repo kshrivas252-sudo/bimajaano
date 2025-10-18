@@ -1,0 +1,29 @@
+
+{% set collection = collections.news %}
+{% set title = 'News' %}
+{% extends "layouts/base.njk" %}
+{% block content %}
+<section class="card">
+  <h2>{{ title }}</h2>
+  <div class="filters" id="filters">
+    <span class="pill active" data-cat="all">All</span>
+    {% for c in ["Life Insurance","Health Insurance","Motor Insurance","Investment","General"] %}
+      <span class="pill" data-cat="{{ c }}">{{ c }}</span>
+    {% endfor %}
+  </div>
+  <ul class="clean" id="list">
+  {% for post in collection | reverse %}
+    <li class="list-item" data-cat="{{ post.data.category or 'General' }}">
+      {% if post.data.image %}<img class="thumb" src="{{ post.data.image }}" alt="" />{% endif %}
+      <h4><a href="{{ post.url }}">{{ post.data.title }}</a></h4>
+      <div class="small">{{ post.date | dateIso }} • {{ post.data.category or "General" }}</div>
+      <p>{{ post.templateContent | excerpt }}...</p>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+<script>
+const list=document.getElementById('list');const pills=document.querySelectorAll('#filters .pill');
+pills.forEach(p=>p.addEventListener('click',()=>{pills.forEach(x=>x.classList.remove('active'));p.classList.add('active');const cat=p.dataset.cat;[...list.children].forEach(li=>{const c=li.getAttribute('data-cat')||'';li.style.display=(cat==='all'||c===cat)?'':'none';});}));
+</script>
+{% endblock %}

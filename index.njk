@@ -1,0 +1,89 @@
+
+{% extends "layouts/base.njk" %}
+{% set title = "Bima Jaano — Insurance Knowledge Hub" %}
+{% set description = "Understand insurance in simple terms. Articles, news, FAQs, and a coverage calculator." %}
+{% block content %}
+<section class="card hero">
+  <div>
+    <h2>Insurance Needs Calculator</h2>
+    <p class="small">Formula: <b>(60 − Age) × (Income − Expenses)</b></p>
+    <div class="grid2">
+      <div>
+        <label>Age<br><input id="age" type="number" min="18" max="80" value="30"></label>
+        <label>Annual Income (₹)<br><input id="inc" type="number" value="500000"></label>
+        <label>Annual Expenses (₹)<br><input id="exp" type="number" value="200000"></label>
+        <button class="btn" onclick="calc()">Calculate</button>
+        <div id="out" style="margin-top:10px"></div>
+      </div>
+      <div>
+        <img class="thumb" src="{{ settings.hero_image }}" alt="Hero image">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h3>Featured Articles</h3>
+  <div class="filters" id="articleFilters">
+    <span class="pill active" data-cat="all">All</span>
+    <span class="pill" data-cat="Life Insurance">Life Insurance</span>
+    <span class="pill" data-cat="Health Insurance">Health Insurance</span>
+    <span class="pill" data-cat="Motor Insurance">Motor Insurance</span>
+  </div>
+  <ul class="clean" id="articleList">
+  {% for post in collections.articles | reverse | slice(0,6) %}
+    <li class="list-item" data-cat="{{ post.data.category or 'Uncategorized' }}">
+      {% if post.data.image %}<img class="thumb" src="{{ post.data.image }}" alt="" />{% endif %}
+      <h4><a href="{{ post.url }}">{{ post.data.title }}</a></h4>
+      <div class="small">{{ post.date | dateIso }} • {{ post.data.category or "Uncategorized" }}</div>
+      <p>{{ post.templateContent | excerpt }}...</p>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+
+<section class="card">
+  <h3>Latest News</h3>
+  <div class="filters" id="newsFilters">
+    <span class="pill active" data-cat="all">All</span>
+    <span class="pill" data-cat="Industry">Industry</span>
+    <span class="pill" data-cat="Regulation">Regulation</span>
+    <span class="pill" data-cat="Products">Products</span>
+  </div>
+  <ul class="clean" id="newsList">
+  {% for post in collections.news | reverse | slice(0,6) %}
+    <li class="list-item" data-cat="{{ post.data.category or 'General' }}">
+      <h4><a href="{{ post.url }}">{{ post.data.title }}</a></h4>
+      <div class="small">{{ post.date | dateIso }} • {{ post.data.category or "General" }}</div>
+      <p>{{ post.templateContent | excerpt }}...</p>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+
+<script>
+function calc(){
+  const age=+document.getElementById('age').value||0;
+  const inc=+document.getElementById('inc').value||0;
+  const exp=+document.getElementById('exp').value||0;
+  const yrs=Math.max(0,60-age);
+  const need=Math.max(0,(inc-exp)*yrs);
+  document.getElementById('out').innerHTML = "<div class='card' style='background:#e8f6ff;border:1px solid #cdefff;'>💡 Recommended coverage: ₹"+Math.round(need).toLocaleString()+"</div>";
+}
+function setupFilters(listId, pillsSelector){
+  const list = document.getElementById(listId);
+  const pills = document.querySelectorAll(pillsSelector + " .pill");
+  pills.forEach(p=>p.addEventListener('click', ()=>{
+    pills.forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+    const cat = p.dataset.cat;
+    [...list.children].forEach(li=>{
+      const c = li.getAttribute('data-cat')||'';
+      li.style.display = (cat === 'all' || c === cat) ? '' : 'none';
+    });
+  }));
+}
+setupFilters('articleList','#articleFilters');
+setupFilters('newsList','#newsFilters');
+</script>
+{% endblock %}
