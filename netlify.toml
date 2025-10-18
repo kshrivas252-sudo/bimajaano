@@ -4,10 +4,3 @@
 
 [build.environment]
   NODE_VERSION = "18"
-
-# post-deploy: ping search engines (works when DEPLOY_URL is set in Netlify)
-[[plugins]]
-  package = "netlify-plugin-command"
-  [plugins.inputs]
-    build = ""
-    postBuild = "curl -s 'https://www.google.com/ping?sitemap=${DEPLOY_URL}/sitemap.xml' || true && curl -s 'https://www.bing.com/ping?sitemap=${DEPLOY_URL}/sitemap.xml' || true"
